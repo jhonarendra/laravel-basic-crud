@@ -25,7 +25,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -36,7 +36,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+        admin::insert($data);
+        return redirect('admin');
     }
 
     /**
@@ -58,7 +67,8 @@ class AdminController extends Controller
      */
     public function edit(admin $admin)
     {
-        //
+        $admin = admin::find($admin->id);
+        return view('admin.edit', compact('admin'));
     }
 
     /**
@@ -70,7 +80,15 @@ class AdminController extends Controller
      */
     public function update(Request $request, admin $admin)
     {
-        //
+        $data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+        admin::where('id',$admin->id)->update($data);
+        return redirect('admin');
     }
 
     /**
@@ -81,6 +99,7 @@ class AdminController extends Controller
      */
     public function destroy(admin $admin)
     {
-        //
+        admin::where('id', $admin->id)->delete();
+        return redirect('admin');
     }
 }

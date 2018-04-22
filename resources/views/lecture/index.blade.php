@@ -23,7 +23,7 @@
             <td>{{$lecture->age}}</td>
             <td>{{$lecture->date_of_birth}}</td>
             <td>
-                <a href="#" class="btn btn-success">
+                <a href="{{URL('lecture/'.$lecture->nip.'/edit')}}" class="btn btn-success">
                     <i class="fa fa-pencil"></i>
                 </a>
                 <a href="#" class="btn btn-danger">

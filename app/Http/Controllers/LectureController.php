@@ -56,9 +56,10 @@ class LectureController extends Controller
      * @param  \App\lecture  $lecture
      * @return \Illuminate\Http\Response
      */
-    public function edit(lecture $lecture)
+    public function edit($nip)
     {
-        //
+        $lectures = lecture::where('nip', $nip)->first();
+        return view('lecture.edit',compact('lectures'));
     }
 
     /**
@@ -68,9 +69,16 @@ class LectureController extends Controller
      * @param  \App\lecture  $lecture
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, lecture $lecture)
+    public function update(Request $request, $nip)
     {
-        //
+        $data = [
+            'name' => $request->name,
+            'age' => $request->age,
+            'date_of_birth' => $request->date_of_birth,
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+        lecture::where('nip', $nip)->update($data);
+        return redirect('lecture');
     }
 
     /**

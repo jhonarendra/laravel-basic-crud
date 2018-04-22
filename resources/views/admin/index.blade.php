@@ -5,7 +5,7 @@
 @section('page-title','Admin')
 
 @section('dashboard-content')
-    <a href="#" class="btn btn-primary">
+    <a href="admin/create" class="btn btn-primary">
         Tambah
     </a>
     <table class="table">
@@ -23,12 +23,18 @@
             <td>{{$admin->username}}</td>
             <td>{{$admin->email}}</td>
             <td>
-                <a href="#" class="btn btn-success">
+                <a href="{{URL('admin/'.$admin->id.'/edit')}}" class="btn btn-success">
                     <i class="fa fa-pencil"></i>
                 </a>
-                <a href="#" class="btn btn-danger">
-                    <i class="fa fa-trash"></i>
-                </a>
+
+                <form action="{{URL('admin/'.$admin->id)}}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE')}}
+
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
             </td>
         </tr>
         @endforeach
